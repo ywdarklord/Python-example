@@ -1,9 +1,12 @@
-本Python网页上传工具通过Django框架搭建。
-
+本Python网页上传工具通过Django框架搭建并使用七牛云存储提供的Python-SDK演示了如何使用Python和Python-SDK开发一个简单的web版文件上传工具样例。
 #安装Django
+下载Django-1.5.1.tar.gz到本地(www.djangoproject.com/download/)运行以下命令执行安装：
 
-#安装Python-SDK
-
+     tar xzvf Django-1.5.1.tar.gz
+     cd Django-1.5.1
+     sudo python setup.py install
+#下载Python-SDK
+https://github.com/qiniu/python-sdk
 #通过Django创建项目
 在下面的操作中将会创建一个名为 djproject的项目：
         
@@ -42,7 +45,7 @@ views.py: 包含视图相关的信息
     url(r'^Users/', 'Users.views.uploadWithKeyAndCustomField', name='uploadWithKeyAndCustomField'),
     url(r'^returnpage/', 'returnpage.views.returnPage', name='returnPage'),)
     
-当访问localhost:8000/Users时，将调用Users目录下views.py文件中的uploadWithKeyAndCustomField()函数。同样的当访问localhost:8000/returnPage时，将调用returnpage目录下views.py文件中的returnPage()函数。
+当访问localhost:8000/Users时，将调用Users目录下views.py文件中的uploadWithKeyAndCustomField()函数。同样的当访问localhost:8000/returnpage时，将调用returnpage目录下views.py文件中的returnPage()函数。
 
 ###创建视图
 
@@ -90,10 +93,12 @@ views.py: 包含视图相关的信息
  </body>
 </html>
 
-这段代码样例，可以指定文件存储到space的文件名，以及制定用户自定义的custom_field_name. 七牛API中关于custom_field_name的说明如下：
+这段代码样例，可以指定文件存储到space的文件名，以及用户自定义的custom_field_name. 
+
+七牛API中关于custom_field_name的说明如下：
 自定义变量，必须以 x: 开头命名，不限个数。可以在 uploadToken 的 callbackBody 选项中使用 $(x:custom_field_name) 求值。
 
-views.py中的uploadWithKeyAndCustomField()函数，将会生成uploadtoken，并显示此视图。
+views.py中的uploadWithKeyAndCustomField()函数，将会生成uploadtoken,如果给UploadToken()方法指定了returnURL的话，那么文件上传成功后会访问网页:localhost:8000/returnpage。但如果没有指定的话，文件上传成功后只显示up.qiniu.com返回的信息。
 
 然后同样的，配置returnpage目录下的，views.py文件：
      
