@@ -1,12 +1,18 @@
 本Python网页上传工具通过Django框架搭建并使用七牛云存储提供的Python-SDK演示了如何使用Python和Python-SDK开发一个简单的web版文件上传工具样例。
 #安装Django
-下载Django-1.5.1.tar.gz到本地(www.djangoproject.com/download/)运行以下命令执行安装：
+下载Django-1.5.1.tar.gz到本地( www.djangoproject.com/download ) 运行以下命令执行安装：
 
      tar xzvf Django-1.5.1.tar.gz
      cd Django-1.5.1
      sudo python setup.py install
-#下载Python-SDK
+#下载并配置Python-SDK
 https://github.com/qiniu/python-sdk
+进入Python-SDK目录，找到并修改config.py
+       
+       ACCESS_KEY = 'YOUR_ACCESS_KEY'
+       SECRET_KEY = 'YOUR_SECRET_KEY'
+       
+ 
 #通过Django创建项目
 在下面的操作中将会创建一个名为 djproject的项目：
         
@@ -80,18 +86,6 @@ views.py: 包含视图相关的信息
     return HttpResponse(htmlStr)
     
     
- 这段代码将会创建如下视图：
- <html>
- <body>
-  <form method="post" action="http://up.qiniu.com/" enctype="multipart/form-data">
-   <input name="token" type="hidden" value="%s">
-   <input name="x:custom_field_name" value="x:custom_field_name">
-   Image key in qiniu cloud storage: <input name="key" value="foo bar.jpg"><br>
-   Image to upload: <input name="file" type="file"/>
-   <input type="submit" value="Upload">
-  </form>
- </body>
-</html>
 
 这段代码样例，可以指定文件存储到space的文件名，以及用户自定义的custom_field_name. 
 
