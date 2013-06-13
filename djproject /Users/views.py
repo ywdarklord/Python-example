@@ -1,6 +1,6 @@
 # Create your views here.
 import sys
-sys.path.append('/Users/yangwang/python-sdk-3.0.0/qbox')
+sys.path.append('/Users/python-sdk-3.0.0/qbox')
 import uptoken
 
                              
